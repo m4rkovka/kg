@@ -49,8 +49,8 @@ void draw_cord_system(view *v) {
     QPainter ptr{v};
     ptr.setPen(QPen(Qt::black, 3));
 
-    QPoint p1{0, v->center_y};
-    QPoint p2{v->width(), v->center_y};
+    QPoint p1{0, static_cast<int>(v->center_y)};
+    QPoint p2{v->width(), static_cast<int>(v->center_y)};
     const int branch_len = 15;
     // drawing axis x
     ptr.drawLine(p1, p2);
@@ -64,9 +64,9 @@ void draw_cord_system(view *v) {
     ptr.drawLine(p_branch1, p_branch2);
 
     // drawing axis y
-    p1.setX(v->center_x);
+    p1.setX(static_cast<int>(v->center_x));
     p1.setY(0);
-    p2.setX(v->center_x);
+    p2.setX(static_cast<int>(v->center_x));
     p2.setY(v->height());
     ptr.drawLine(p1, p2);
 
@@ -91,8 +91,8 @@ void draw_cord_system(view *v) {
     for (int x = static_cast<int>(v->step_x), num = 0; x + v->center_x < v->width() || v->center_x - x > 0;
          x += v->step_x, num += div_x) {
         ptr.setPen(Qt::gray);
-        p1.setX(x + v->center_x);
-        p2.setX(x + v->center_x);
+        p1.setX(static_cast<int>(x + v->center_x));
+        p2.setX(static_cast<int>(x + v->center_x));
         ptr.drawLine(p1, p2);
 
         ptr.setPen(QPen(Qt::black, 3));
@@ -104,8 +104,8 @@ void draw_cord_system(view *v) {
                      QString::number(num + div_x));
 
         ptr.setPen(Qt::gray);
-        p1.setX(v->center_x - x);
-        p2.setX(v->center_x - x);
+        p1.setX(static_cast<int>(v->center_x - x));
+        p2.setX(static_cast<int>(v->center_x - x));
         ptr.drawLine(p1, p2);
 
         ptr.setPen(QPen(Qt::black, 3));
@@ -124,8 +124,8 @@ void draw_cord_system(view *v) {
     for (int y = static_cast<int>(v->step_y), num = 0; y + v->center_y < v->height() || v->center_y - y > 0;
          y += v->step_y, num += div_y) {
         ptr.setPen(Qt::gray);
-        p1.setY(y + v->center_y);
-        p2.setY(y + v->center_y);
+        p1.setY(static_cast<int>(y + v->center_y));
+        p2.setY(static_cast<int>(y + v->center_y));
         ptr.drawLine(p1, p2);
 
         ptr.setPen(QPen(Qt::black, 3));
@@ -137,8 +137,8 @@ void draw_cord_system(view *v) {
                      QString::number(num + div_y));
 
         ptr.setPen(Qt::gray);
-        p1.setY(v->center_y - y);
-        p2.setY(v->center_y - y);
+        p1.setY(static_cast<int>(v->center_y - y));
+        p2.setY(static_cast<int>(v->center_y - y));
         ptr.drawLine(p1, p2);
 
         ptr.setPen(QPen(Qt::black, 3));

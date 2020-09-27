@@ -23,8 +23,8 @@ private:
 //    int step;
     double step_x;
     double step_y;
-    int center_x;
-    int center_y;
+    double center_x;
+    double center_y;
     bool first;
     QPointF previousPoint;
 protected:
