@@ -4,6 +4,8 @@
 #include "view.h"
 #include <QDockWidget>
 #include <QResizeEvent>
+#include <QAction>
+#include <QScrollArea>
 #include <algorithm>
 #include <utility>
 
@@ -20,8 +22,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     vw = new view;
     vw->set_cord_system_panel(cord);
+    vw->setMinimumHeight(20);
+    vw->setMinimumWidth(20);
 
     setCentralWidget(vw);
+
+    QAction *quitAct = new QAction("&Quit", this);
+    quitAct->setToolTip("Quit application");
+    quitAct->setStatusTip("Closes the application");
+    connect(quitAct, SIGNAL(triggered()), qApp, SLOT(quit()));
+
+    QMenu *fileMenu = menuBar()->addMenu("&File");
+    fileMenu->addAction(quitAct);
+
+    QAction *panelAct = dock->toggleViewAction();
+    panelAct->setStatusTip("Toggle panel");
+
+    QMenu *viewMenu = menuBar()->addMenu("&View");
+    viewMenu->addAction(panelAct);
 
     connect(cord, SIGNAL(div_x_changed(int)),
             this, SLOT(redrawOnValueChanged(int)));

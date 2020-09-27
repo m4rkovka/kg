@@ -23,9 +23,15 @@ private:
 //    int step;
     double step_x;
     double step_y;
+    int center_x;
+    int center_y;
+    bool first;
+    QPointF previousPoint;
 protected:
     void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);
+    void mousePressEvent(QMouseEvent *);
+    void mouseMoveEvent(QMouseEvent *);
 signals:
 
 public slots:
