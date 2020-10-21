@@ -82,6 +82,8 @@ void draw_cord_system(view *v) {
     ptr.setPen(QPen(Qt::black, 3));
     ptr.drawText(QPointF(v->center_x - (v->step_x / 4), v->center_y + (v->step_y / 4)),
                  QString::number(0));
+    ptr.drawText(v->width() - 15, static_cast<int>(v->center_y + 20), "X");
+    ptr.drawText(static_cast<int>(v->center_x - 15), 10, "Y");
 
     // drawing grid
     p_branch1.setY(v->center_y + v->step_y / 4);
