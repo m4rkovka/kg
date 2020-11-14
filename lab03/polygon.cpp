@@ -60,11 +60,14 @@ int Polygon::calc_diffuse_component(int dx, int dy, Lamp *lamp) {
         lamp->position.x() - (vertices[0].x() + dx),
         lamp->position.y() - (vertices[0].y() + dy),
         lamp->position.z() - vertices[0].z()
-    }.normalized();
+    };
+    QVector3D toLampNormalized = toLamp.normalized();
     QVector3D normal = this->get_normal().normalized();
-    double scalarProduct = static_cast<double>(toLamp.x() * normal.x() + toLamp.y() * normal.y() + toLamp.z() * normal.z());
+    double scalarProduct = static_cast<double>(toLampNormalized.x() * normal.x() +
+                                               toLampNormalized.y() * normal.y() +
+                                               toLampNormalized.z() * normal.z());
 
-    int res = static_cast<int>(diffuse_coef * scalarProduct * lamp->power / pow((static_cast<double>(toLamp.length())), 1.2));
+    int res = static_cast<int>(diffuse_coef * scalarProduct * lamp->power * 100 / pow((static_cast<double>(toLamp.length())), 1.2));
     if (res < 0) {
         res = 0;
     }
@@ -76,13 +79,14 @@ int Polygon::calc_specular_component(int dx, int dy, Lamp *lamp) {
         lamp->position.x() - (vertices[0].x() + dx),
         lamp->position.y() - (vertices[0].y() + dy),
         lamp->position.z() - vertices[0].z()
-    }.normalized();
+    };
+    QVector3D toLampNormalized = toLamp.normalized();
     QVector3D toObserver = QVector3D{0 - (vertices[0].x()), 0 - (vertices[0].y()), vertices[0].z()}.normalized();
-    QVector3D median = (toLamp + toObserver) / (toLamp + toObserver).length();
+    QVector3D median = (toLampNormalized + toObserver) / (toLampNormalized + toObserver).length();
     QVector3D normal = this->get_normal().normalized();
     float scalarProduct = median.x() * normal.x() + median.y() * normal.y() + median.z() * normal.z();
     int res = static_cast<int>(specular_coef * pow(static_cast<double>(scalarProduct), gloss_coef) *
-                               lamp->power / pow((static_cast<double>(toLamp.length())), 1.2));
+                               lamp->power * 100 / pow((static_cast<double>(toLamp.length())), 1.2));
     if (res < 0) {
         res = 0;
     }
