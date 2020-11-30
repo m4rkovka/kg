@@ -198,12 +198,12 @@ void Ellipsoid::create() {
             QVector4D firstVertex;
             std::vector<QVector4D> newPrevPoints{};
             size_t cnt = 0;
-            for (double phi = 0; phi < 2 * M_PI; phi += step, cnt++) {
-                if (phi == 0.) {
+            for (double t = 0; t < 2 * M_PI; t += step, cnt++) {
+                if (t == 0.) {
                     firstVertex = {
-                        static_cast<float>(a * sin(theta) * cos(phi)),
-                        static_cast<float>(b * sin(theta) * sin(phi)),
-                        static_cast<float>(c * cos(theta)),
+                        static_cast<float>(r * cos(t)),
+                        static_cast<float>(r * sin(t)),
+                        0,
                         1
                     };
                     prevVertex = firstVertex;
@@ -213,9 +213,9 @@ void Ellipsoid::create() {
                 std::vector<QVector4D> toPushBack;
                 QVector4D newVertex;
                 newVertex = {
-                    static_cast<float>(a * sin(theta) * cos(phi)),
-                    static_cast<float>(b * sin(theta) * sin(phi)),
-                    static_cast<float>(c * cos(theta)),
+                    static_cast<float>(r * cos(t)),
+                    static_cast<float>(r * sin(t)),
+                    0,
                     1
                 };
                 toPushBack = {
@@ -232,7 +232,7 @@ void Ellipsoid::create() {
                 polygons.push_back(toPushBack);
                 prevVertex = newVertex;
                 newPrevPoints.push_back(prevVertex);
-                if (phi + step > 2 * M_PI) {
+                if (t + step > 2 * M_PI) {
                     cnt++;
                     toPushBack = {
                         prevPoints[cnt - 1],
