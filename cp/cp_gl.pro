@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2020-12-08T22:47:05
+# Project created by QtCreator 2020-12-10T16:22:25
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = cp
+TARGET = cp_gl
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -34,9 +34,6 @@ HEADERS += \
         mainwindow.h \
         panel.h \
         view.h
-
-FORMS += \
-        mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
